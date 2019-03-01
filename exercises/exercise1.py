@@ -6,11 +6,12 @@ def change_pin(accounts, account):
     pass
 
 def withdraw(accounts, account):
-    print("You just withdrawde k?")
+    print("How much would you like to withdraw?")
+    print("Looks like you have ")
     pass
 
-def print_balance(accounts, account):
-    print("The balance of your account {} is: {}.".format(account, accounts[1][account]))
+def get_balance(accounts, account):
+    return accounts[1][account]
     pass
 
 def get_action():
@@ -37,6 +38,7 @@ def get_action():
     return switcher.get(option.lower(), "invalid")
 
     pass
+
 # This def gets all accounts(so it can change the PIN) and account number.
 # returns True or False.
 # returns False if the user choose to quit.
@@ -47,18 +49,18 @@ def actions(accounts, account):
           "a. View balance(\"bal\" or 'a'). b. Withdraw money(\"wit\" or 'b').\n"
           "c. Change PIN(\"PIN\" or 'c').   d. Quit(\"Quit\" or 'd')")
 
-
     action = get_action()
     while action == "invalid":
         print("Invalid action.")
         action = get_action()
     if action == "balance":
-        print_balance(accounts, account)
+        print("The balance of account {} is: {}.".format(account, get_balance(accounts, account)))
     if action == "withdraw":
         withdraw(accounts, account)
     if action == "pin":
         change_pin(accounts, account)
     if action == "quit":
+        print("Thanks you for using our bank. \n Goodbye.")
         return False
 
     pass
@@ -122,13 +124,12 @@ def run_bank():
     print(accounts)
     account_number = get_bank_acc_number(accounts)
     print("Account number:{}".format(account_number))
-    if check_pin(accounts, account_number, input("Enter PIN number.\n")) == False:
+    if not check_pin(accounts, account_number, input("Enter PIN number.\n")):
         print("You have reached the maximum amount of attempts.\n"
               "Try again later.")
         return
     while not actions(accounts, account_number):
             return
-    print(accounts)
     pass
 
 if __name__ == '__main__':
