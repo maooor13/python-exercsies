@@ -7,7 +7,7 @@ def withdraw():
 def print_balance():
     pass
 
-def commands():
+def actions():
     pass
 
 
@@ -71,7 +71,7 @@ def run_bank():
         print("You have reached the maximum amount of attempts.\n"
               "Try again later.")
         return
-
+    actions()
 
 
 
