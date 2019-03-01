@@ -1,13 +1,59 @@
-def change_pin():
+def main():
+    run_bank()
+
+def change_pin(accounts, account):
     pass
 
-def withdraw():
+def withdraw(accounts, account):
     pass
 
-def print_balance():
+def print_balance(accounts, account):
     pass
 
-def actions():
+def get_action():
+    pass
+# This def gets all accounts(so it can change the PIN) and account number.
+# returns True or False.
+# returns False if the user choose to quit.
+def actions(accounts, account):
+    print("Welcome!\n"
+          "In our bank you can do multiple actions!")
+    print("You can - \n"
+          "a. View balance(\"bal\" or 'a'). b. Withdraw money(\"wit\" or 'b').\n"
+          "c. Change PIN(\"PIN\" or 'c').   d. Quit(\"Quit\" or 'd')")
+
+    switcher = {
+            "a"       : "balance",
+            "bal"     : "balance",
+            "view"    : "balance",
+            "balance" : "balance",
+
+            "b"       : "withdraw",
+            "wit"     : "withdraw",
+            "withdraw": "withdraw",
+
+            "c"       : "pin",
+            "PIN"     : "pin",
+            "pin"     : "pin",
+
+            "d"       : "quit",
+            "quit"    : "quit",
+            "q"       : "quit",
+
+    }
+    action = input("What would you like to do? ")
+    while switcher.get(action,"invalid"):
+        print("Invalid action.")
+        action = input("What would you like to do? ")
+    if switcher.get(action).lower() == "balance":
+        print_balance(accounts, account)
+    if switcher.get(action).lower() == "withdraw":
+        withdraw(accounts, account)
+    if switcher.get(action).lower() == "pin":
+        change_pin(accounts, account)
+    if switcher.get(action).lower() == "quit":
+        return False
+
     pass
 
 # This function gets all accounts, account number and PIN number
@@ -42,6 +88,7 @@ def get_bank_acc_number(accounts):
     if answer is "y":
         return account_number
     get_bank_acc_number(accounts)
+    pass
 
 # These function initiates all accounts
 # and assign them with PIN number and balance
@@ -61,6 +108,7 @@ def init_accounts():
         "000000": 0
     }
     return accounts
+    pass
 
 def run_bank():
     accounts = init_accounts()
@@ -71,12 +119,9 @@ def run_bank():
         print("You have reached the maximum amount of attempts.\n"
               "Try again later.")
         return
-    actions()
-
-
-def main():
-    run_bank()
-
+    actions(accounts, account_number)
+    print(accounts)
+    pass
 
 if __name__ == '__main__':
     main()
