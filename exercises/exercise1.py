@@ -10,8 +10,9 @@ def print_balance():
 def actions():
     pass
 
-
-
+# This function gets all accounts, account number and PIN number
+# Returns True if PIN is the pin num of account
+# User has 3 attempt to enter the correct PIN
 def check_pin(accounts, account, PIN):
     counter = 3
     print("You entered {}.".format(PIN))
@@ -42,7 +43,6 @@ def get_bank_acc_number(accounts):
         return account_number
     get_bank_acc_number(accounts)
 
-
 # These function initiates all accounts
 # and assign them with PIN number and balance
 def init_accounts():
@@ -72,7 +72,6 @@ def run_bank():
               "Try again later.")
         return
     actions()
-
 
 
 def main():
