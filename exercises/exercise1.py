@@ -5,9 +5,55 @@ def change_pin(accounts, account):
     print("no pin for you")
     pass
 
+def change_balance(accounts, account, amount):
+    accounts[1][account] = accounts[1][account] + amount
+    pass
+
 def withdraw(accounts, account):
     print("How much would you like to withdraw?")
-    print("Looks like you have ")
+    print("You have {}₪.".format(get_balance(accounts,account)))
+    if get_balance(accounts,account) < 20:
+        print("You can't withdraw any money, you must have more than 20₪.")
+        return
+
+    print("How much money would you like to withdraw?")
+    print("a.20₪ b.50₪ c.other")
+    print("Please use letters only")
+    amount = input().lower()
+    while amount != "a" and amount != "b" and amount != "c":
+        print("Invalid answer. Please choose a b or c")
+        print("How much money would you like to withdraw?")
+        print("a.20₪ b.50₪ c.other")
+        print("Please use letters only")
+        amount = input().lower()
+    if amount == "a":
+        answer = input("Are you sure you want to withdraw 20 Shekels?(y/n)")
+        if answer == "y":
+            change_balance(accounts, account, -20)
+        elif answer == "n":
+            withdraw(accounts, account)
+        else:
+            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 20 Shekels?(y/n)")
+    if amount == "b":
+        answer = input("Are you sure you want to withdraw 50 Shekels?(y/n)")
+        if answer == "y":
+            change_balance(accounts, account, -50)
+        elif answer == "n":
+            withdraw(accounts, account)
+        else:
+            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 50 Shekels?(y/n)")
+    if amount == "c":
+        how_much = int(input("How much would you like to withdraw?(Only for amounts that divide by 20 or 50)."))
+        while how_much % 20 != 0 and how_much % 50 != 0:
+            how_much = input("{} is not dividable by 20 or 50.\n How much would you like to withdraw?(Only for amounts that divide by 20 or 50).".format(how_much))
+        answer = input("Are you sure you want to withdraw {} Shekels?(y/n)".format(how_much))
+        if answer == "y":
+            change_balance(accounts, account, how_much*-1)
+        elif answer == "n":
+            withdraw(accounts, account)
+        else:
+            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw {} Shekels?(y/n)".format(how_much))
+
     pass
 
 def get_balance(accounts, account):
@@ -130,6 +176,7 @@ def run_bank():
         return
     while not actions(accounts, account_number):
             return
+
     pass
 
 if __name__ == '__main__':
