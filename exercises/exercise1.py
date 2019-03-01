@@ -2,15 +2,40 @@ def main():
     run_bank()
 
 def change_pin(accounts, account):
+    print("no pin for you")
     pass
 
 def withdraw(accounts, account):
+    print("You just withdrawde k?")
     pass
 
 def print_balance(accounts, account):
+    print("The balance of account {} is {}".format(account, account[1][account]))
     pass
 
 def get_action():
+    switcher = {
+        "a": "balance",
+        "bal": "balance",
+        "view": "balance",
+        "balance": "balance",
+
+        "b": "withdraw",
+        "wit": "withdraw",
+        "withdraw": "withdraw",
+
+        "c": "pin",
+        "PIN": "pin",
+        "pin": "pin",
+
+        "d": "quit",
+        "quit": "quit",
+        "q": "quit",
+    }
+
+    option = input("What would you like to do? ")
+    return switcher.get(option.lower(), "invalid")
+
     pass
 # This def gets all accounts(so it can change the PIN) and account number.
 # returns True or False.
@@ -22,36 +47,18 @@ def actions(accounts, account):
           "a. View balance(\"bal\" or 'a'). b. Withdraw money(\"wit\" or 'b').\n"
           "c. Change PIN(\"PIN\" or 'c').   d. Quit(\"Quit\" or 'd')")
 
-    switcher = {
-            "a"       : "balance",
-            "bal"     : "balance",
-            "view"    : "balance",
-            "balance" : "balance",
 
-            "b"       : "withdraw",
-            "wit"     : "withdraw",
-            "withdraw": "withdraw",
-
-            "c"       : "pin",
-            "PIN"     : "pin",
-            "pin"     : "pin",
-
-            "d"       : "quit",
-            "quit"    : "quit",
-            "q"       : "quit",
-
-    }
-    action = input("What would you like to do? ")
-    while switcher.get(action,"invalid"):
+    action = get_action()
+    while action == "invalid":
         print("Invalid action.")
-        action = input("What would you like to do? ")
-    if switcher.get(action).lower() == "balance":
+        action = get_action()
+    if action == "balance":
         print_balance(accounts, account)
-    if switcher.get(action).lower() == "withdraw":
+    if action == "withdraw":
         withdraw(accounts, account)
-    if switcher.get(action).lower() == "pin":
+    if action == "pin":
         change_pin(accounts, account)
-    if switcher.get(action).lower() == "quit":
+    if action == "quit":
         return False
 
     pass
