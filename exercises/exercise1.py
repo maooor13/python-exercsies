@@ -10,7 +10,7 @@ def withdraw(accounts, account):
     pass
 
 def print_balance(accounts, account):
-    print("The balance of account {} is {}".format(account, account[1][account]))
+    print("The balance of your account {} is: {}.".format(account, accounts[1][account]))
     pass
 
 def get_action():
@@ -122,11 +122,12 @@ def run_bank():
     print(accounts)
     account_number = get_bank_acc_number(accounts)
     print("Account number:{}".format(account_number))
-    while check_pin(accounts, account_number, input("Enter PIN number.\n")) == False:
+    if check_pin(accounts, account_number, input("Enter PIN number.\n")) == False:
         print("You have reached the maximum amount of attempts.\n"
               "Try again later.")
         return
-    actions(accounts, account_number)
+    while not actions(accounts, account_number):
+            return
     print(accounts)
     pass
 
