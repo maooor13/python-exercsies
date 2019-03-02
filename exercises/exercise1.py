@@ -16,9 +16,11 @@ def change_pin(accounts, account):
     PIN = input()
     while not PIN.isdigit():
         PIN = input("PIN must be numbers.")
-        while not len(PIN) is 4:
+        while not len(PIN) == 4:
             PIN = input("PIN must have 4 digits.")
-
+    accounts[0][account] = PIN
+    print("Your PIN has been updated successfully!")
+    print("Your current PIN is {}.".format(accounts[0][account]))
     pass
 
 def change_balance(accounts, account, amount):
@@ -149,16 +151,14 @@ def actions(accounts, account):
         action = get_action()
     if action == "balance":
         print("The balance of account {} is: {}₪.".format(account, get_balance(accounts, account)))
-        return True
     if action == "withdraw":
         withdraw(accounts, account)
-        return True
     if action == "pin":
         change_pin(accounts, account)
-        return True
     if action == "quit":
         print("Thanks you for using our bank.\nGoodbye.")
         return False
+    return True
 
     pass
 
