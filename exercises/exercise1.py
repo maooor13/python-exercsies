@@ -14,8 +14,10 @@ def change_pin(accounts, account):
     print("What would you like your PIN to be?")
     print("Remember your PIN can be only 4 digits.")
     PIN = input()
-    while type(PIN) is not int:
-        print("Please enter 4 digits.")
+    while not PIN.isdigit():
+        PIN = input("PIN must be numbers.")
+        while not len(PIN) is 4:
+            PIN = input("PIN must have 4 digits.")
 
     pass
 
@@ -26,10 +28,10 @@ def change_balance(accounts, account, amount):
     pass
 
 def withdraw(accounts, account):
+    print("You have {}₪.".format(get_balance(accounts, account)))
     if get_balance(accounts,account) < 0:
         print("You can't withdraw any money, you have no money.")
         return
-
     print("How much money would you like to withdraw?")
     print("a.20₪ b.50₪ c.other d.go back")
     print("Please use letters only")
@@ -146,7 +148,7 @@ def actions(accounts, account):
         print("Invalid action.")
         action = get_action()
     if action == "balance":
-        print("The balance of account {} is: {}.".format(account, get_balance(accounts, account)))
+        print("The balance of account {} is: {}₪.".format(account, get_balance(accounts, account)))
         return True
     if action == "withdraw":
         withdraw(accounts, account)
@@ -155,7 +157,7 @@ def actions(accounts, account):
         change_pin(accounts, account)
         return True
     if action == "quit":
-        print("Thanks you for using our bank. \n Goodbye.")
+        print("Thanks you for using our bank.\nGoodbye.")
         return False
 
     pass
@@ -223,8 +225,9 @@ def run_bank():
     print(accounts)
     account_number = get_bank_acc_number(accounts)
     print("Account number:{}".format(account_number))
-    while not check_screen(accounts, account_number):
-        run_bank()
+    while check_screen(accounts, account_number):
+        pass
+    run_bank()
     pass
 
 if __name__ == '__main__':
