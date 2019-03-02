@@ -1,58 +1,96 @@
 def main():
     run_bank()
 
+def back_screen(accounts, account):
+    print("to check pin again and call get action :) - todo")
+    pass
+
 def change_pin(accounts, account):
-    print("no pin for you")
+    print("no pin for you - todo")
     pass
 
 def change_balance(accounts, account, amount):
     accounts[1][account] = accounts[1][account] + amount
+    print("You have successfully changed you balance.")
+    print("You now have {} Shekels.".format(accounts[1][account]))
     pass
 
 def withdraw(accounts, account):
-    print("How much would you like to withdraw?")
-    print("You have {}₪.".format(get_balance(accounts,account)))
-    if get_balance(accounts,account) < 20:
-        print("You can't withdraw any money, you must have more than 20₪.")
+    if get_balance(accounts,account) < 0:
+        print("You can't withdraw any money, you have no money.")
         return
 
     print("How much money would you like to withdraw?")
-    print("a.20₪ b.50₪ c.other")
+    print("a.20₪ b.50₪ c.other d.go back")
     print("Please use letters only")
     amount = input().lower()
-    while amount != "a" and amount != "b" and amount != "c":
+    # WHILE UNTIL VALID ANSWER
+    while amount != "a" and amount != "b" and amount != "c" and amount != "d":
         print("Invalid answer. Please choose a b or c")
         print("How much money would you like to withdraw?")
         print("a.20₪ b.50₪ c.other")
         print("Please use letters only")
         amount = input().lower()
+
+
+    # IF ANSWER IS A - IF ANSWER IS 20 SHEKELS
     if amount == "a":
+        # CHECK IF CAN WITHDRAW 20
+        if get_balance(accounts,account) < 20:
+            print("You can not withdraw 20 Shekels.\nYou have only {} Shekels.".format(get_balance(accounts,account)))
+            withdraw(accounts, account)
+        # CONFIRMATION
         answer = input("Are you sure you want to withdraw 20 Shekels?(y/n)")
+        while answer != "y" and answer != "n":
+            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 20 Shekels?(y/n)")
         if answer == "y":
             change_balance(accounts, account, -20)
+            back_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
-        else:
-            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 20 Shekels?(y/n)")
+
+
+
+    # IF ANSWER IS B - IF ANSWER IS 50 SHEKELS
     if amount == "b":
+        # CHECK IF CAN WITHDRAW 50
+        if get_balance(accounts,account) < 50:
+            print("You can not withdraw 20 Shekels.\nYou have only {} Shekels.".format(get_balance(accounts,account)))
+            withdraw(accounts, account)
+        # CONFIRMATION
         answer = input("Are you sure you want to withdraw 50 Shekels?(y/n)")
+        while answer != "y" and answer != "n":
+            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 50 Shekels?(y/n)")
         if answer == "y":
             change_balance(accounts, account, -50)
+            back_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
-        else:
-            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 50 Shekels?(y/n)")
+
+
+
+    # IF ANSWER IS C - IF ANSWER IS OTHER
     if amount == "c":
-        how_much = int(input("How much would you like to withdraw?(Only for amounts that divide by 20 or 50)."))
-        while how_much % 20 != 0 and how_much % 50 != 0:
-            how_much = input("{} is not dividable by 20 or 50.\n How much would you like to withdraw?(Only for amounts that divide by 20 or 50).".format(how_much))
-        answer = input("Are you sure you want to withdraw {} Shekels?(y/n)".format(how_much))
+        how_much = int(input("How much would you like to withdraw?"))
+        # CHECK IF TRIES TO WITHDRAW NEGATIVE AMOUNT
+        while how_much<=0:
+            how_much = int(input("{} must be positive.\n How much would you like to withdraw?".format(how_much)))
+        # CHECK IF CAN WITHDRAW AMOUNT GIVEN
+        if get_balance(accounts,account) < how_much:
+            print("You can not withdraw {} Shekels.\nYou have only {} Shekels.".format(how_much,get_balance(accounts,account)))
+            withdraw(accounts, account)
+        # CONFIRMATION
+        answer = (input("Are you sure you want to withdraw {} Shekels?(y/n)".format(how_much)))
+        while answer != "y" and answer != "n":
+            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw {} Shekels?(y/n)".format(how_much))
         if answer == "y":
             change_balance(accounts, account, how_much*-1)
+            back_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
-        else:
-            answer = input("Please enter a valid answer.\nAre you sure you want to withdraw {} Shekels?(y/n)".format(how_much))
+
+    if amount == "d":
+        back_screen(accounts,account)
 
     pass
 
@@ -152,11 +190,13 @@ def init_accounts():
     # First dictionary is acc number and PIN
     # Second dictionary is acc number and balance
     accounts = {
+        # Dictionary of account_number:PIN
         "123456":"1234",
         "598123":"5486",
         "112358":"8510",
         "000000":"0000"
     },{
+        # Dictionary of account_number:balance
         "123456": 5000,
         "598123": 84320,
         "112358": -120,
@@ -175,7 +215,8 @@ def run_bank():
               "Try again later.")
         return
     while not actions(accounts, account_number):
-            return
+        return
+
 
     pass
 
