@@ -1,12 +1,22 @@
 def main():
     run_bank()
 
-def back_screen(accounts, account):
-    print("to check pin again and call get action :) - todo")
+
+# This function checks the user for pin
+# Then it calls back to the actions
+# If the user wants to quit or enters the wrong PIN it returns False
+def check_screen(accounts, account):
+    return check_pin(accounts, account) and actions(accounts, account)
     pass
 
 def change_pin(accounts, account):
-    print("no pin for you - todo")
+    print("Your current PIN is {}.".format(accounts[0][account]))
+    print("What would you like your PIN to be?")
+    print("Remember your PIN can be only 4 digits.")
+    PIN = input()
+    while type(PIN) is not int:
+        print("Please enter 4 digits.")
+
     pass
 
 def change_balance(accounts, account, amount):
@@ -45,7 +55,7 @@ def withdraw(accounts, account):
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 20 Shekels?(y/n)")
         if answer == "y":
             change_balance(accounts, account, -20)
-            back_screen(accounts, account)
+            check_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
 
@@ -63,7 +73,7 @@ def withdraw(accounts, account):
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 50 Shekels?(y/n)")
         if answer == "y":
             change_balance(accounts, account, -50)
-            back_screen(accounts, account)
+            check_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
 
@@ -85,12 +95,12 @@ def withdraw(accounts, account):
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw {} Shekels?(y/n)".format(how_much))
         if answer == "y":
             change_balance(accounts, account, how_much*-1)
-            back_screen(accounts, account)
+            check_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
 
     if amount == "d":
-        back_screen(accounts,account)
+        check_screen(accounts,account)
 
     pass
 
@@ -120,12 +130,10 @@ def get_action():
 
     option = input("What would you like to do? ")
     return switcher.get(option.lower(), "invalid")
-
     pass
 
 # This def gets all accounts(so it can change the PIN) and account number.
-# returns True or False.
-# returns False if the user choose to quit.
+# returns False if the user chose to quit.
 def actions(accounts, account):
     print("Welcome!\n"
           "In our bank you can do multiple actions!")
@@ -139,10 +147,13 @@ def actions(accounts, account):
         action = get_action()
     if action == "balance":
         print("The balance of account {} is: {}.".format(account, get_balance(accounts, account)))
+        return True
     if action == "withdraw":
         withdraw(accounts, account)
+        return True
     if action == "pin":
         change_pin(accounts, account)
+        return True
     if action == "quit":
         print("Thanks you for using our bank. \n Goodbye.")
         return False
@@ -152,8 +163,9 @@ def actions(accounts, account):
 # This function gets all accounts, account number and PIN number
 # Returns True if PIN is the pin num of account
 # User has 3 attempt to enter the correct PIN
-def check_pin(accounts, account, PIN):
-    counter = 3
+def check_pin(accounts, account):
+    PIN = input("Enter PIN number.")
+    counter = 4
     print("You entered {}.".format(PIN))
     while accounts[0][account] != PIN and counter:
             print("You've enter wrong PIN.\n"
@@ -162,6 +174,7 @@ def check_pin(accounts, account, PIN):
             PIN = input("Enter PIN number.\n")
     if accounts[0][account] == PIN:
         return True
+    print("You have entered the wrong PIN number too many times.")
     return False
     pass
 
@@ -210,14 +223,8 @@ def run_bank():
     print(accounts)
     account_number = get_bank_acc_number(accounts)
     print("Account number:{}".format(account_number))
-    if not check_pin(accounts, account_number, input("Enter PIN number.\n")):
-        print("You have reached the maximum amount of attempts.\n"
-              "Try again later.")
-        return
-    while not actions(accounts, account_number):
-        return
-
-
+    while not check_screen(accounts, account_number):
+        run_bank()
     pass
 
 if __name__ == '__main__':
