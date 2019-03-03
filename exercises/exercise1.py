@@ -31,7 +31,7 @@ def change_balance(accounts, account, amount):
 
 def withdraw(accounts, account):
     print("You have {}₪.".format(get_balance(accounts, account)))
-    if get_balance(accounts,account) < 0:
+    if get_balance(accounts,account) <= 0:
         print("You can't withdraw any money, you have no money.")
         return
     print("How much money would you like to withdraw?")
