@@ -85,7 +85,9 @@ def withdraw(accounts, account):
 
     # IF ANSWER IS C - IF ANSWER IS OTHER
     if amount == "c":
-        how_much = int(input("How much would you like to withdraw?"))
+        how_much = input("How much would you like to withdraw?")
+        while not how_much.isdigit():
+            how_much = input("Please enter correct amount.\nHow much would you like to withdraw?")
         # CHECK IF TRIES TO WITHDRAW NEGATIVE AMOUNT
         while how_much<=0:
             how_much = int(input("{} must be positive.\n How much would you like to withdraw?".format(how_much)))
