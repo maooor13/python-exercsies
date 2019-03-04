@@ -1,5 +1,9 @@
 def main():
-    run_bank()
+    accounts = init_accounts()
+    print(accounts)
+    while True:
+        run_bank(accounts)
+        pass
 
 
 # This function checks the user for pin
@@ -8,6 +12,7 @@ def main():
 def check_screen(accounts, account):
     return check_pin(accounts, account) and actions(accounts, account)
     pass
+
 
 def change_pin(accounts, account):
     print("Your current PIN is {}.".format(accounts[0][account]))
@@ -19,6 +24,7 @@ def change_pin(accounts, account):
     accounts[0][account] = PIN
     print("Your PIN has been updated successfully!")
     print("Your current PIN is {}.".format(accounts[0][account]))
+    return True
     pass
 
 def check_change_pin(PIN):
@@ -34,9 +40,10 @@ def change_balance(accounts, account, amount):
     print("You now have {} Shekels.".format(accounts[1][account]))
     pass
 
+
 def withdraw(accounts, account):
     print("You have {}₪.".format(get_balance(accounts, account)))
-    if get_balance(accounts,account) <= 0:
+    if get_balance(accounts , account) <= 0:
         print("You can't withdraw any money, you have no money.")
         return
     print("How much money would you like to withdraw?")
@@ -47,46 +54,41 @@ def withdraw(accounts, account):
     while amount != "a" and amount != "b" and amount != "c" and amount != "d":
         print("Invalid answer. Please choose a b or c")
         print("How much money would you like to withdraw?")
-        print("a.20₪ b.50₪ c.other")
+        print("a.20₪ b.50₪ c.other d.go back")
         print("Please use letters only")
         amount = input().lower()
-
 
     # IF ANSWER IS A - IF ANSWER IS 20 SHEKELS
     if amount == "a":
         # CHECK IF CAN WITHDRAW 20
-        if get_balance(accounts,account) < 20:
-            print("You can not withdraw 20 Shekels.\nYou have only {} Shekels.".format(get_balance(accounts,account)))
-            withdraw(accounts, account)
+        if get_balance(accounts , account) < 20:
+            print("You can not withdraw 20 Shekels.\nYou have only {} Shekels.".format(get_balance(accounts , account)))
+            withdraw(accounts , account)
         # CONFIRMATION
         answer = input("Are you sure you want to withdraw 20 Shekels?(y/n)")
         while answer != "y" and answer != "n":
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 20 Shekels?(y/n)")
         if answer == "y":
-            change_balance(accounts, account, -20)
-            check_screen(accounts, account)
+            change_balance(accounts , account , -20)
+            check_screen(accounts , account)
         elif answer == "n":
-            withdraw(accounts, account)
-
-
+            withdraw(accounts , account)
 
     # IF ANSWER IS B - IF ANSWER IS 50 SHEKELS
     if amount == "b":
         # CHECK IF CAN WITHDRAW 50
-        if get_balance(accounts,account) < 50:
-            print("You can not withdraw 20 Shekels.\nYou have only {} Shekels.".format(get_balance(accounts,account)))
-            withdraw(accounts, account)
+        if get_balance(accounts, account) < 50:
+            print("You can not withdraw 20 Shekels.\nYou have only {} Shekels.".format(get_balance(accounts , account)))
+            withdraw(accounts , account)
         # CONFIRMATION
         answer = input("Are you sure you want to withdraw 50 Shekels?(y/n)")
         while answer != "y" and answer != "n":
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 50 Shekels?(y/n)")
         if answer == "y":
-            change_balance(accounts, account, -50)
-            check_screen(accounts, account)
+            change_balance(accounts , account, -50)
+            check_screen(accounts , account)
         elif answer == "n":
-            withdraw(accounts, account)
-
-
+            withdraw(accounts , account)
 
     # IF ANSWER IS C - IF ANSWER IS OTHER
     if amount == "c":
@@ -109,8 +111,8 @@ def withdraw(accounts, account):
 
     if amount == "d":
         check_screen(accounts,account)
-
     pass
+
 
 def valid_amount_input(accounts, account, amount):
     # Returns false if not valid input for amount
@@ -120,9 +122,11 @@ def valid_amount_input(accounts, account, amount):
     return False
     pass
 
+
 def get_balance(accounts, account):
     return accounts[1][account]
     pass
+
 
 def get_action():
     switcher = {
@@ -148,6 +152,7 @@ def get_action():
     return switcher.get(option.lower(), "invalid")
     pass
 
+
 # This def gets all accounts(so it can change the PIN) and account number.
 # returns False if the user chose to quit.
 def actions(accounts, account):
@@ -163,9 +168,11 @@ def actions(accounts, account):
     return handle_action(accounts,account,action)
     pass
 
+
 def handle_action(accounts, account, action):
     if action == "balance":
         print("The balance of account {} is: {}₪.".format(account, get_balance(accounts, account)))
+        check_screen(accounts, account)
     if action == "withdraw":
         withdraw(accounts, account)
     if action == "pin":
@@ -174,6 +181,7 @@ def handle_action(accounts, account, action):
         print("Thanks you for using our bank.\nGoodbye.")
         return False
     return True
+
 
 # This function gets all accounts, account number and PIN number
 # Returns True if PIN is the pin num of account
@@ -193,6 +201,7 @@ def check_pin(accounts, account):
     return False
     pass
 
+
 # This function gets all accounts and waits
 # for user to input his account number.
 def get_bank_acc_number(accounts):
@@ -211,6 +220,7 @@ def get_bank_acc_number(accounts):
     get_bank_acc_number(accounts)
     pass
 
+
 # These function initiates all accounts
 # and assign them with PIN number and balance
 def init_accounts():
@@ -219,11 +229,11 @@ def init_accounts():
     # Second dictionary is acc number and balance
     accounts = {
         # Dictionary of account_number:PIN
-        "123456":"1234",
-        "598123":"5486",
-        "112358":"8510",
-        "000000":"0000"
-    },{
+        "123456": "1234",
+        "598123": "5486",
+        "112358": "8510",
+        "000000": "0000"
+    }, {
         # Dictionary of account_number:balance
         "123456": 5000,
         "598123": 84320,
@@ -233,15 +243,13 @@ def init_accounts():
     return accounts
     pass
 
-def run_bank():
-    accounts = init_accounts()
-    print(accounts)
+
+def run_bank(accounts):
     account_number = get_bank_acc_number(accounts)
     print("Account number:{}".format(account_number))
-    while check_screen(accounts, account_number):
-        pass
-    run_bank()
+    return check_screen(accounts, account_number)
     pass
+
 
 if __name__ == '__main__':
     main()
