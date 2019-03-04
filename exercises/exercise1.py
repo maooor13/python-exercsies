@@ -71,7 +71,6 @@ def withdraw(accounts, account):
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 20 Shekels?(y/n)")
         if answer == "y":
             change_balance(accounts, account, -20)
-            check_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
 
@@ -87,17 +86,17 @@ def withdraw(accounts, account):
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw 50 Shekels?(y/n)")
         if answer == "y":
             change_balance(accounts, account, -50)
-            check_screen(accounts, account)
         elif answer == "n":
             withdraw(accounts, account)
 
     # IF ANSWER IS C - IF ANSWER IS OTHER
     if amount == "c":
         how_much = input("How much would you like to withdraw?")
-        while not valid_amount_input(accounts, account, how_much):
+        if not valid_amount_input(accounts, account, how_much):
             print("Can't withdraw {}₪.".format(how_much))
-            print("Returning to withdrawal screen.")
-            withdraw(accounts, account)
+            print("Returning to main screen.")
+            return
+            # withdraw(accounts, account)
 
         answer = (input("Are you sure you want to withdraw {} Shekels?(y/n)".format(how_much)))
         while answer != "y" and answer != "n":
@@ -106,13 +105,13 @@ def withdraw(accounts, account):
 
         if answer == "y":
             change_balance(accounts, account, int(how_much) * -1)
-            check_screen(accounts, account)
 
         elif answer == "n":
             withdraw(accounts, account)
 
     if amount == "d":
-        check_screen(accounts, account)
+        return
+        # return
     pass
 
 
@@ -174,7 +173,6 @@ def actions(accounts, account):
 def handle_action(accounts, account, action):
     if action == "balance":
         print("The balance of account {} is: {}₪.".format(account, get_balance(accounts, account)))
-        check_screen(accounts, account)
     if action == "withdraw":
         withdraw(accounts, account)
     if action == "pin":
@@ -182,6 +180,7 @@ def handle_action(accounts, account, action):
     if action == "quit":
         print("Thanks you for using our bank.\nGoodbye.")
         return False
+    check_screen(accounts, account)
     return True
 
 
