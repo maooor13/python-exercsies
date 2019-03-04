@@ -6,10 +6,13 @@ def main():
 
 def is_int(num):
     try:
-        float(num)
+        int(num)
         return True
     except ValueError:
         return False
+
+def to_int(num):
+    return int(num)
 
 def get_list():
     sum = 0
@@ -26,19 +29,18 @@ def get_list():
 
 
 def get_list_as_list():
-    sum = 0
     print("Enter numbers by list.")
     print("For example - \"1,2,3,4,5\"")
     lst = input("Input:")
     lst = lst.split(',')
-    print(lst)
     try:
-        for num in lst:
-          sum = sum + int(num)
+        lst = list(map(to_int,lst))
+        print(lst)
+        print(sum(lst))
     except:
         print("Bad list. Try again.")
         get_list_as_list()
-    print(sum)
+
 
 
 if __name__ == '__main__':
