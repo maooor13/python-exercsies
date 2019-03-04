@@ -156,11 +156,13 @@ def actions(accounts, account):
     print("You can - \n"
           "a. View balance(\"bal\" or 'a'). b. Withdraw money(\"wit\" or 'b').\n"
           "c. Change PIN(\"PIN\" or 'c').   d. Quit(\"Quit\" or 'd')")
-
     action = get_action()
     while action == "invalid":
         print("Invalid action.")
         action = get_action()
+    pass
+
+def handle_action(accounts, account, action):
     if action == "balance":
         print("The balance of account {} is: {}₪.".format(account, get_balance(accounts, account)))
     if action == "withdraw":
@@ -171,8 +173,6 @@ def actions(accounts, account):
         print("Thanks you for using our bank.\nGoodbye.")
         return False
     return True
-
-    pass
 
 # This function gets all accounts, account number and PIN number
 # Returns True if PIN is the pin num of account
