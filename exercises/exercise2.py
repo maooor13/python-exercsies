@@ -1,6 +1,8 @@
 def main():
-    get_list()
+    # get_list()
+    get_list_as_list()
     pass
+
 
 def is_int(num):
     try:
@@ -23,6 +25,20 @@ def get_list():
     print("The sum is {}.".format(sum))
 
 
+def get_list_as_list():
+    sum = 0
+    print("Enter numbers by list.")
+    print("For example - \"1,2,3,4,5\"")
+    lst = input("Input:")
+    lst = lst.split(',')
+    print(lst)
+    try:
+        for num in lst:
+          sum = sum + int(num)
+    except:
+        print("Bad list. Try again.")
+        get_list_as_list()
+    print(sum)
 
 
 if __name__ == '__main__':
