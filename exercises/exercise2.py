@@ -11,8 +11,10 @@ def is_int(num):
     except ValueError:
         return False
 
+
 def to_int(num):
     return int(num)
+
 
 def get_list():
     sum = 0
@@ -34,13 +36,12 @@ def get_list_as_list():
     lst = input("Input:")
     lst = lst.split(',')
     try:
-        lst = list(map(to_int,lst))
+        lst = list(map(to_int, lst))
         print(lst)
         print(sum(lst))
     except:
         print("Bad list. Try again.")
         get_list_as_list()
-
 
 
 if __name__ == '__main__':
