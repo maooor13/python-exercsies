@@ -160,6 +160,7 @@ def actions(accounts, account):
     while action == "invalid":
         print("Invalid action.")
         action = get_action()
+    handle_action(accounts,account,action)
     pass
 
 def handle_action(accounts, account, action):
