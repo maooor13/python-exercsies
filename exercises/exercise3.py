@@ -19,7 +19,20 @@ def check_row(game, i):
         return game[i][0]
     return 0
 
+
+def check_col(game, i):
+    if game[0][i] == game [1][i] == game[2][i]:
+        return game[0][i]
+    return 0
+    pass
+
+
 def check_cols(game):
+    winner = 0
+    for i in range(3):
+        winner = check_col(game, i)
+        if winner != 0:
+            return winner
     pass
 
 
