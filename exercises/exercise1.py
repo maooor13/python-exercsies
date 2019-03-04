@@ -14,14 +14,19 @@ def change_pin(accounts, account):
     print("What would you like your PIN to be?")
     print("Remember your PIN can be only 4 digits.")
     PIN = input()
-    while not PIN.isdigit():
-        PIN = input("PIN must be numbers.")
-        while not len(PIN) == 4:
-            PIN = input("PIN must have 4 digits.")
+    while not check_change_pin(PIN):
+        PIN = input("Invalid PIN.\nTry Again.")
     accounts[0][account] = PIN
     print("Your PIN has been updated successfully!")
     print("Your current PIN is {}.".format(accounts[0][account]))
     pass
+
+def check_change_pin(PIN):
+    if PIN.isdigit():
+        if len(PIN) is 4:
+            return True
+    return False
+
 
 def change_balance(accounts, account, amount):
     accounts[1][account] = accounts[1][account] + amount
