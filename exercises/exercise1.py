@@ -218,7 +218,8 @@ def get_bank_acc_number(accounts):
                        "confirm?(y/n)".format(account_number))
     if answer is "y":
         return account_number
-    get_bank_acc_number(accounts)
+    if answer is "n":
+        return get_bank_acc_number(accounts)
     pass
 
 
