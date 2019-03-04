@@ -14,6 +14,7 @@ def check_rows(game):
             return winner
     pass
 
+
 def check_row(game, i):
     if len(game[i]) == game[i].count(game[i][0]):
         return game[i][0]
@@ -21,7 +22,7 @@ def check_row(game, i):
 
 
 def check_col(game, i):
-    if game[0][i] == game [1][i] == game[2][i]:
+    if game[0][i] == game[1][i] == game[2][i]:
         return game[0][i]
     return 0
     pass
@@ -37,7 +38,7 @@ def check_cols(game):
 
 
 def check_main_diag(game):
-    if game[0][0] == game[1][1] == game [2][2]:
+    if game[0][0] == game[1][1] == game[2][2]:
         return game[1][1]
     return 0
     pass
@@ -48,7 +49,7 @@ def check_second_diag(game):
     prev = winner
     for i in range(len(game[0])):
         for j in range(len(game[0])):
-            if i + j == len(game[0])-1:
+            if i + j == len(game[0]) - 1:
                 if game[i][j] != winner:
                     return 0
     return winner
@@ -79,7 +80,6 @@ def check_state(game):
     pass
     print("The current game is tied.")
     return 0
-
 
 
 if __name__ == '__main__':
