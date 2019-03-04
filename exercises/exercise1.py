@@ -86,28 +86,33 @@ def withdraw(accounts, account):
     # IF ANSWER IS C - IF ANSWER IS OTHER
     if amount == "c":
         how_much = input("How much would you like to withdraw?")
-        while not how_much.isdigit():
-            how_much = input("Please enter correct amount.\nHow much would you like to withdraw?")
-        # CHECK IF TRIES TO WITHDRAW NEGATIVE AMOUNT
-        while how_much<=0:
-            how_much = int(input("{} must be positive.\n How much would you like to withdraw?".format(how_much)))
-        # CHECK IF CAN WITHDRAW AMOUNT GIVEN
-        if get_balance(accounts,account) < how_much:
-            print("You can not withdraw {} Shekels.\nYou have only {} Shekels.".format(how_much,get_balance(accounts,account)))
+        while not valid_amount_input(accounts, account, how_much):
+            print("Can't withdraw {}₪.".format(how_much))
+            print("Returning to withdrawal screen.")
             withdraw(accounts, account)
-        # CONFIRMATION
+
         answer = (input("Are you sure you want to withdraw {} Shekels?(y/n)".format(how_much)))
         while answer != "y" and answer != "n":
             answer = input("Please enter a valid answer.\nAre you sure you want to withdraw {} Shekels?(y/n)".format(how_much))
+
         if answer == "y":
-            change_balance(accounts, account, how_much*-1)
+            change_balance(accounts, account, int(how_much)*-1)
             check_screen(accounts, account)
+
         elif answer == "n":
             withdraw(accounts, account)
 
     if amount == "d":
         check_screen(accounts,account)
 
+    pass
+
+def valid_amount_input(accounts, account, amount):
+    # Returns false if not valid input for amount
+    if amount.isdigit():
+        if 0 < int(amount) <= get_balance(accounts, account) :
+            return True
+    return False
     pass
 
 def get_balance(accounts, account):
