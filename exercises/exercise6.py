@@ -12,8 +12,12 @@ def add5(x):
 
 def Map(f,list):
     new_list = []
-    for x in list:
-        new_list.append(f(x))
+    try:
+        for x in list:
+            new_list.append(f(x))
+    except TypeError:
+        print("Bad params for function {}.".format(f.__name__))
+        print("Returning list with good params.")
     return new_list
 
 
