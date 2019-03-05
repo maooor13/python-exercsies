@@ -1,5 +1,12 @@
 def main():
-    print(check_valid_id(543700421))
+    id = input("Enter ID.")
+    if id.isdigit():
+        if check_valid_id(int(id)):
+            print("Valid.")
+        else:
+            print("Not valid.")
+    else:
+        main()
     pass
 
 
