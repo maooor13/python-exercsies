@@ -1,5 +1,5 @@
 def main():
-    print(calculate_id(int(21145539)))
+    print(check_valid_id(543700421))
     pass
 
 
@@ -21,11 +21,13 @@ def calculate_id(id):
 
 def sub_from_ten(calc):
     tens = int(calc / 10)
-    print(tens)
+    tens += 1
+    tens *= 10
+    return tens - calc
 
 def check_valid_id(id):
     last_digit = id % 10
-    calc = calculate_id(id / 10)
+    calc = calculate_id(int(id / 10))
     calc = sub_from_ten(calc)
     return calc == last_digit
 
